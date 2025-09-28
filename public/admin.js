@@ -56,10 +56,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } else {
                 Swal.fire({ icon: 'error', title: 'Access Denied', text: 'You must be an admin to view this page.'})
-                .then(() => { window.location.href = 'pest.html'; });
+                .then(() => { window.location.href = 'index.html'; });
             }
         } else {
-            window.location.href = 'pest.html';
+            window.location.href = 'index.html';
         }
     });
 
