@@ -1,0 +1,1183 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+html, body {
+    height: 100%;
+}
+body {
+    background-color: #F8F9FA; /* Naya Light Background */
+    color: #495057;         /* Naya Default Text Color */
+    overflow-x: hidden;
+}
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Hidden on the LEFT */
+    width: 300px;
+    height: 100%;
+    background-color: #ffffff; /* Safed Side Menu */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    z-index: 200;
+    transition: left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.side-menu.active {
+    left: 0; /* Show menu from LEFT */
+}
+.side-menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+.side-menu-logo {
+    display: block; /* Link ko poori jagah dene ke liye */
+}
+.side-menu-logo img {
+    height: 60px; /* Side menu mein thoda chhota rakha hai */
+}
+#close-menu-icon {
+    font-size: 1.8rem;
+    color: #8A2BE2;
+    cursor: pointer;
+}
+.side-menu-links {
+    list-style: none;
+    flex-grow: 1; /* Beech mein space lene ke liye */
+}
+.side-menu-links li {
+    margin-bottom: 15px;
+}
+.side-menu-links a {
+    text-decoration: none;
+    color: #8A2BE2;
+    font-size: 1.1rem;
+    padding: 10px 0;
+    display: block;
+}
+.side-menu-auth {
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+#side-menu-signin-button {
+    background-color: #8A2BE2;
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+}
+#side-menu-user-profile {
+    display: none; /* JS se control hoga */
+    align-items: center;
+    gap: 15px;
+    color: #8A2BE2;
+}
+#side-menu-user-initial {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #8A2BE2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+#side-menu-user-display-name {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#side-menu-logout-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: auto;
+}
+.header {
+    background-color: #ffffff; /* Safed Header */
+    padding: 1rem 5%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07); /* Halki Shadow */
+    
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logo {
+    text-decoration: none;
+}
+.logo img {
+    height: 70px; /* Aap is size ko kam ya zyada kar sakte hain */
+    vertical-align: middle; /* Baki cheezon ke saath line mein laane ke liye */
+}
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+.nav-links a {
+    text-decoration: none;
+    color: #8A2BE2;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+}
+.nav-links a:hover {
+    color: #8A2BE2;
+}
+.nav-links i {
+    font-size: 0.7rem;
+    margin-left: 5px;
+}
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.btn-template {
+    background-color: #f0e6ff;
+    color: #8A2BE2;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-template:hover {
+    background-color: #e0d1f5;
+}
+#user-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    gap: 10px;
+}
+#user-initial {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #8A2BE2;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: 600;
+}
+#user-display-name {
+    color: #8A2BE2;
+    font-weight: 500;
+}
+#profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    z-index: 110;
+    min-width: 120px;
+}
+#profile-dropdown a {
+    display: block;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+}
+#profile-dropdown a:hover {
+    background-color: #f5f5f5;
+}
+#user-profile:hover #profile-dropdown {
+    display: block;
+}
+#menu-icon {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #8A2BE2;
+}
+.hero-section {
+   
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 70vh;
+   
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 5%;
+    color: #fff;
+    position: relative;
+}
+.hero-content {
+    max-width: 600px;
+}
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+.hero-content p {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    max-width: 500px;
+}
+.hero-buttons {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+}
+.btn-green {
+    background-color: #8A2BE2;
+    color: #fff;
+    border: none;
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-green:hover {
+    background-color: #6a1db0;
+}
+.btn-white {
+    background-color: #8A2BE2;
+    color: #ffffff;  
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.btn-white:hover {
+    background-color: #6a1db0;
+}
+.btn-white i {
+    margin-right: 8px;
+}
+.intro-section {
+    padding: 80px 0;
+    background-color: #ffffff;
+    text-align: center;
+}
+.intro-section h2 {
+    font-size: 36px;
+    color: #8A2BE2;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.intro-section .intro-subheading {
+    font-size: 20px;
+    color: #212529; /* Theme color se match karne ke liye */
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.intro-section .intro-text {
+    font-size: 16px;
+    color: #666;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+   
+}
+.service-area-section {
+    padding: 80px 0;
+    background-color: #f8f9fa; /* Thoda alag background color */
+    text-align: center;
+}
+
+.service-area-section h2 {
+    font-size: 36px;
+    color: #8A2BE2;
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+.service-area-section p {
+    font-size: 17px;
+    color: #555;
+    max-width: 850px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+/* Features Section */
+.features-section {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    background-color: #fff;
+    width: 70%;
+    margin: -60px auto 0 auto;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 10;
+    flex-wrap: wrap;
+}
+
+.feature-box {
+    flex: 1;
+    text-align: center;
+}
+
+.feature-box .icon-container {
+    background-color: #000000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin: 0 auto 1rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feature-box i {
+    color: #4682B4;
+    font-size: 1.5rem;
+}
+
+.feature-box h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.footer {
+    background-color: #ffffff; /* Safed Footer */
+    color: #1b1818; /* Halka Grey Text */
+    padding: 70px 0 20px 0;
+    border-top: 1px solid #DEE2E6; /* Upar halki line */
+}
+
+.footer-container {
+    max-width: 1170px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 5%;
+}
+
+.footer-col {
+    width: 22%;
+    padding: 0 15px;
+    margin-bottom: 30px;
+}
+
+.footer-col h4 {
+    font-size: 18px;
+    color: #212529;
+    text-transform: capitalize;
+    margin-bottom: 35px;
+    font-weight: 500;
+    position: relative;
+}
+
+
+/* Footer ke logo ka size theek karne ke liye naya code */
+.footer-logo {
+    height: 60px;
+    
+}
+
+.footer-col h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    background-color: #8A2BE2;
+    height: 2px;
+    box-sizing: border-box;
+    width: 50px;
+}
+
+.footer-col p {
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.footer-col ul li a {
+    font-size: 16px;
+    text-transform: capitalize;
+    color: #1b1818;
+    text-decoration: none;
+    font-weight: 300;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+.footer-col ul li a:hover {
+    color: #8A2BE2;
+    padding-left: 8px;
+}
+
+.social-links a {
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    background-color: #8A2BE2;
+    margin: 0 10px 10px 0;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: all 0.5s ease;
+}
+
+.social-links a:hover {
+    color: #24262b;
+    background-color: #ffffff;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 40px;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+}
+
+/* Services Section Styling */
+.services-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.container {
+    max-width: 1170px;
+    margin: auto;
+    padding: 0 5%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 36px;
+    color: #8A2BE2; /* Gehra Grey Text */
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.section-title p {
+    font-size: 16px;
+    color: #666;
+    max-width: 600px;
+    margin: auto;
+}
+
+/* Contact Section Styling */
+.contact-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 50px;
+    background-color: #e4e9e9a1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+}
+
+.contact-info h3, .contact-form h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.info-item i {
+    font-size: 20px;
+    width: 45px;
+    height: 45px;
+    background-color: #8A2BE2;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.info-item .details {
+    color: #555;
+    font-size: 16px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #8A2BE2;
+}
+
+.btn-submit {
+    background-color: #8A2BE2;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    background-color: #6a1db0;
+}
+
+/* Why Choose Us Section Styling */
+.wcu-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.wcu-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.wcu-image img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.wcu-content .section-title p {
+    margin: 0;
+    max-width: 100%;
+}
+
+.wcu-features {
+    margin-top: 30px;
+}
+
+.wcu-feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.wcu-feature-item:last-child {
+    margin-bottom: 0;
+}
+
+.wcu-feature-item i {
+    font-size: 24px;
+    color: #8A2BE2;
+    margin-right: 20px;
+    margin-top: 5px;
+    min-width: 25px;
+    text-align: center;
+}
+
+.wcu-feature-item h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.wcu-feature-item p {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.6;
+}
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* Pest Pedia Promo Section Styling */
+.pest-pedia-promo {
+    padding: 60px 0;
+    background-color: #ffffffe4;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.pest-pedia-promo h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #8A2BE2;
+    margin-bottom: 15px;
+}
+
+.pest-pedia-promo p {
+    font-size: 1.2rem;
+    color: #252323;
+    margin-bottom: 30px;
+}
+
+.promo-subtext {
+    font-size: 1rem !important;
+    color: #242121 !important;
+    font-style: italic;
+    margin-top: -20px;
+    margin-bottom: 0 !important;
+}
+
+/* Service Card & Flip Animation Styling */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    align-items: stretch;
+}
+.service-card-flipper {
+    perspective: 1000px;
+    min-height: 280px;
+}
+.service-card-flipper:hover .service-card:not(.is-flipped) {
+    transform: translateY(-10px);
+}
+.service-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s, box-shadow 0.3s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+.card-front {
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+     border: 1px solid #DEE2E6;
+}
+.card-back {
+     background-color: #F3F0FF; /* Light Violet Background */
+    color: #212529; /* Dark Grey Text */
+    transform: rotateY(180deg);
+    text-align: left;
+    border: 1px solid #DEE2E6;
+}
+.card-back h4 {
+    color: #8400ff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+.card-back p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+}
+.service-card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.service-card h3 {
+    font-size: 22px;
+    color: #8A2BE2;
+    margin-bottom: 15px;
+}
+.service-card p {
+    font-size: 15px;
+    color: #000000;
+    line-height: 1.6;
+}
+
+
+/* =================================== */
+/* Responsive CSS (Media Queries)      */
+/* =================================== */
+
+@media (max-width: 992px) {
+    /* Mobile par Hamburger Icon dikhayein */
+    #menu-icon {
+        display: block;
+    }
+
+    /* Desktop waale navigation links aur right section ko hide karein */
+    .nav-links, .nav-right {
+        display: none;
+    }
+
+    .features-section {
+        width: 90%;
+        flex-direction: column;
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile par header ko patla karne ke liye */
+.header {
+    padding: 0.4rem 5%; /* Padding thodi aur kam ki */
+}
+.logo img {
+    height: 45px; /* Mobile par logo ka size chhota kiya */
+}
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-content p { font-size: 1rem; }
+    .hero-buttons { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .hero-section { height: auto; padding-top: 4rem; padding-bottom: 8rem; }
+    .features-section { margin-top: -60px; margin-bottom: 40px; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .wcu-wrapper { grid-template-columns: 1fr; }
+    .footer-col { width: 100%; text-align: center; }
+    .footer-col h4::before { left: 50%; transform: translateX(-50%); }
+}
+
+@media (max-width: 576px) {
+    .section-title h2 { font-size: 28px; }
+    .services-section, .contact-section, .wcu-section, .footer { padding: 60px 0; }
+    .hero-content h1 { font-size: 2rem; }
+    .navbar { padding: 0.8rem 5%; }
+}
+/* ===== FOOTER RESPONSIVE CSS ===== */
+
+/* Tablet ke liye (768px se kam screen par) */
+@media (max-width: 768px) {
+    .footer-col {
+        width: 100%; /* Sabko ek ke neeche ek (stack) kar dein */
+        margin-bottom: 40px;
+        text-align: center;
+    }
+    .footer-col h4::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Mobile ke liye (576px se kam screen par) */
+@media (max-width: 576px) {
+    .footer-col {
+        width: 100%; /* Sabko ek ke neeche ek (stack) kar dein */
+    }
+}
+/* Logout button ko hamesha dikhane ke liye */
+#profile-dropdown {
+    display: block; /* Dropdown ko hamesha dikhayein */
+    position: static; /* Position normal karein */
+    box-shadow: none; /* Faltu shadow hatayein */
+    background-color: transparent; /* Background hatayein */
+    margin-left: 15px; /* Naam se thodi doori */
+}
+
+#logout-button {
+    color: #8A2BE2; /* Link ka color theek karein */
+    font-weight: 500;
+    padding: 0; /* Faltu padding hatayein */
+}
+
+/* =================================== */
+/* Side Menu Auth Section Final Fix    */
+/* =================================== */
+
+/* User profile wale poore section ke liye container */
+#side-menu-user-profile {
+    display: flex; /* Items ko ek line mein laane ke liye */
+    align-items: center; /* Vertically center align karne ke liye */
+    gap: 15px;
+    color: #333; /* Text ka color light theme ke liye */
+}
+
+/* User ka naam */
+#side-menu-user-display-name {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Logout button */
+#side-menu-logout-button {
+    margin-left: auto; /* YEH LINE BUTTON KO RIGHT MEIN BHEJTI HAI */
+    padding: 0.6rem 1rem;
+    background-color: #dc3545; /* Logout ke liye Red color */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0; /* Button ko shrink hone se rokne ke liye */
+}
+/* =================================== */
+/* Services Section ka Naya Button     */
+/* =================================== */
+.services-action-btn {
+    text-align: center;
+    margin-top: 50px; /* Cards se thodi doori ke liye */
+}
+
+/* =================================== */
+/* Testimonials Section Styling        */
+/* =================================== */
+.testimonials-section {
+    padding: 80px 0;
+    background-color: #f8f9fa; /* Light background to separate sections */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background-color: #ffffff;
+    padding: 35px 30px;
+    border-radius: 10px;
+    border-left: 5px solid #8A2BE2; /* Theme color accent */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-card .fa-quote-left {
+    font-size: 30px;
+    color: #8A2BE2;
+    margin-bottom: 20px;
+}
+
+.testimonial-card .review-text {
+    color: #555;
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    flex-grow: 1; /* Yeh customer info ko neeche rakhega */
+}
+
+.testimonial-card .customer-info {
+    text-align: left;
+}
+
+.testimonial-card .stars {
+    color: #f5b000; /* Stars ke liye gold color */
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.testimonial-card .customer-info h4 {
+    color: #212529;
+    font-size: 18px;
+    margin: 0;
+    font-weight: 600;
+}
+
+.testimonial-card .customer-info span {
+    color: #777;
+    font-size: 14px;
+}
+
+.modal-overlay {
+    display: none; position: fixed; z-index: 1000; left: 0; top: 0;
+    width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center; align-items: center;
+}
+.modal-content {
+    background-color: #fff; color: #333; padding: 40px; border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2); width: 90%; max-width: 400px;
+    position: relative; text-align: center;
+}
+.modal-content .form-group {
+    margin-bottom: 15px; text-align: left;
+}
+.modal-content input {
+    width: 100%; padding: 12px; border-radius: 5px; color: #000;
+    border: 1px solid #ccc; font-size: 16px;
+}
+.close-modal {
+    color: #aaa; position: absolute; top: 15px; right: 20px;
+    font-size: 28px; font-weight: bold; cursor: pointer;
+}
+#admin-login-button {
+    margin-top: 10px; width: 100%;
+}
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+.password-wrapper input {
+    padding-right: 40px; /* Icon ke liye jagah banana */
+}
+.password-wrapper i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #aaa;
+}
+/* =================================== */
+/* FINAL - New Service Card Layout     */
+/* =================================== */
+
+/* Card ko naye design ke liye lamba banayein */
+.service-card-flipper {
+    min-height: 360px;
+}
+
+/* Card ke Front Hisse ki Styling */
+.card-front {
+    display: flex;
+    flex-direction: column;
+    padding: 0; /* Container se padding hatayein */
+    justify-content: flex-start;
+    align-items: stretch;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #DEE2E6;
+}
+
+.card-image-top {
+    height: 65%; /* Ise 65% karein */
+    background-size: cover;
+    background-position: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+.card-description-bottom {
+    height: 35%; /* Ise 35% hi rehne dein */
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+/* Card ke Peeche Wale Hisse ki Styling */
+.card-back {
+    justify-content: center;
+    align-items: flex-start; /* Text ko left se shuru karein */
+    text-align: left;
+    padding: 25px; /* Thoda padding adjust karein */
+}
+
+/* Peeche wale hisse mein naye links ka section */
+/* Buttons ke container ki styling */
+.card-back-links {
+    margin-top: 15px;
+    border-top: 1px solid #d1c4e9;
+    padding-top: 15px;
+    width: 100%;
+    
+    /* YEH NAYE CHANGES HAIN */
+    display: flex;
+    flex-direction: column; /* Buttons ko ek ke neeche ek rakhega */
+    align-items: center;   /* Buttons ko center mein rakhega */
+    gap: 10px;             /* Dono buttons ke beech mein space dega */
+}
+
+/* Buttons ki nayi styling */
+.card-back-links a {
+    display: block;        /* Button ko poori jagah dega */
+    width: 90%;          /* Button ki chaudai card ke 90% hogi */
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #8A2BE2;
+    font-weight: 500;
+    padding: 10px;        /* Padding ko adjust kiya */
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.card-back-links a:hover {
+    background-color: #ffffff;
+    color: #8A2BE2;
+    border: 2px solid #8A2BE2;
+    transform: translateY(-2px);
+}
+
+/* --- Har Card ke liye alag Image Set Karein --- */
+/* ZAROORI: In paths ko apni a_li image ke path se badlein */
+
+.termite-image { background-image: url(termite.webp); }
+.rodent-image { background-image: url(rodent.jpeg); }
+.cockroach-image { background-image: url(cockroach.webp); }
+.mosquito-image { background-image: url(mosquito.jpg); }
+.bedbug-image { background-image: url(bedbugs.webp); }
+.ant-image { background-image: url(ants.webp); }
+.spider-image { background-image: url(spider.webp); }
+.fly-image { background-image: url(flies.jpeg); }
+.woodborer-image { background-image: url(woodborer.png); }
+
+/* =================================== */
+/* FINAL CLEAN FLOATING BUTTONS CSS    */
+/* =================================== */
+.fab-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 15px;
+}
+
+.fab-child {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    color: white;
+    font-size: 28px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.2s ease;
+}
+
+.fab-child:hover {
+    transform: scale(1.1);
+}
+
+.fab-child.call-float {
+    background-color: #007bff;
+}
+
+.fab-child.whatsapp-float {
+    background-color: #25D366;
+}
+/* =================================== */
+/* Loading Spinner Styling (Global)    */
+/* =================================== */
+.loader {
+    border: 4px solid #f3f3f3; /* Halka grey border */
+    border-top: 4px solid #8A2BE2; /* Aapka theme color */
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto; /* Center mein laane ke liye */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+/* Button ke andar spinner ke liye special style */
+.final-book-btn .loader {
+    width: 20px;
+    height: 20px;
+    border-width: 3px;
+    border-top-color: #ffffff; /* Button ke andar spinner ka color safed rakhein */
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+}
+/* style.css mein aakhir mein add karein */
+
+.hero-slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Content ke peeche rahega */
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out; /* Smooth fade ke liye */
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Slider ke upar rahega */
+}
