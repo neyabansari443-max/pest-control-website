@@ -115,96 +115,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
     // ===================================
-    // Admin Login Modal Logic
-    // ===================================
-    if (adminLoginModal) {
-        const openAdminModalLinks = document.querySelectorAll('.open-admin-modal-link');
-        const adminLoginButton = document.getElementById('admin-login-button');
-        const closeModalButton = adminLoginModal.querySelector('.close-modal');
-        const toggleAdminPassword = document.getElementById('toggle-admin-password');
-        const adminPasswordInput = document.getElementById('admin-password');
+// Admin Login Modal Logic
+// ===================================
+if (adminLoginModal) {
+    const openAdminModalLinks = document.querySelectorAll('.open-admin-modal-link');
+    const adminLoginButton = document.getElementById('admin-login-button');
+    const closeModalButton = adminLoginModal.querySelector('.close-modal');
+    const toggleAdminPassword = document.getElementById('toggle-admin-password');
+    const adminPasswordInput = document.getElementById('admin-password');
 
-        openAdminModalLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (sideMenu) sideMenu.classList.remove('active');
-                adminLoginModal.style.display = 'flex';
-            });
+    openAdminModalLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (sideMenu) sideMenu.classList.remove('active');
+            adminLoginModal.style.display = 'flex';
         });
+    });
 
-        if (closeModalButton) {
-            closeModalButton.addEventListener('click', () => {
-                adminLoginModal.style.display = 'none';
-            });
-        }
-        
-        if (adminLoginButton) {
-            adminLoginButton.addEventListener('click', async () => {
-                const email = document.getElementById('admin-email').value;
-                const password = document.getElementById('admin-password').value;
-
-                if (!email || !password) {
-                    alert("Please enter both email and password.");
-                    return;
-                }
-
-                try {
-                    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                    const user = userCredential.user;
-                    const userDocRef = doc(db, "users", user.uid);
-                    const docSnap = await getDoc(userDocRef);
-
-                   if (docSnap.exists() && docSnap.data().role === 'admin') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Login Successful!',
-                        text: 'Redirecting to the admin dashboard...',
-                        timer: 2000, // 2 second ka timer
-                        showConfirmButton: false // "OK" button chhupa dega
-                    }).then(() => {
-                        window.location.href = 'admin.html';
-                    });
-                } else { //...
-                        alert("You are not authorized to access the admin panel.");
-                        await signOut(auth);
-                    }
-                } catch (error) {
-                    alert("Login Failed: Wrong email or password.");
-                    console.error("Login error details:", error);
-                }
-            });
-        }
-
-        if (toggleAdminPassword && adminPasswordInput) {
-            toggleAdminPassword.addEventListener('click', function () {
-                const type = adminPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                adminPasswordInput.setAttribute('type', type);
-                this.classList.toggle('fa-eye-slash');
-            });
-
-        }
+    if (closeModalButton) {
+        closeModalButton.addEventListener('click', () => {
+            adminLoginModal.style.display = 'none';
+        });
     }
+    
+    if (adminLoginButton) {
+        adminLoginButton.addEventListener('click', async () => {
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+
+            if (!email || !password) {
+                alert("Please enter both email and password.");
+                return;
+            }
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                const userDocRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(userDocRef);
+
+               if (docSnap.exists() && docSnap.data().role === 'admin') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Login Successful!',
+                    text: 'Redirecting to the admin dashboard...',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'admin.html';
+                });
+            } else {
+                    alert("You are not authorized to access the admin panel.");
+                    await signOut(auth);
+                }
+            } catch (error) {
+                alert("Login Failed: Wrong email or password.");
+                console.error("Login error details:", error);
+            }
+        });
+    }
+
+    if (toggleAdminPassword && adminPasswordInput) {
+        toggleAdminPassword.addEventListener('click', function () {
+            const type = adminPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            adminPasswordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+        });
+    }
+}
+
+// ===================================
+// NAYA CODE: Hamburger Menu Link Click Logic
+// ===================================
+const sideMenuLinks = document.querySelectorAll('.side-menu-links a');
+sideMenuLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (sideMenu) {
+            sideMenu.classList.remove('active');
+        }
+    });
 });
-// script.js mein aakhir mein diye gaye code ko isse replace karein
 
-    // ===================================
-    // FINAL - Hero Slider Logic
-    // ===================================
-    const slides = document.querySelectorAll('.hero-slider .slide');
-    if (slides.length > 0) {
-        let currentSlide = 0;
-        
-        // Pehle slide ko active karein
+// ===================================
+// FINAL - Hero Slider Logic
+// ===================================
+const slides = document.querySelectorAll('.hero-slider .slide');
+if (slides.length > 0) {
+    let currentSlide = 0;
+    
+    // Pehle slide ko active karein
+    if (slides[currentSlide]) {
         slides[currentSlide].classList.add('active');
-
-        setInterval(() => {
-            // Puraane slide se active class hatayein
-            slides[currentSlide].classList.remove('active');
-            
-            // Agle slide par jaayein
-            currentSlide = (currentSlide + 1) % slides.length;
-
-            // Naye slide par active class lagayein
-            slides[currentSlide].classList.add('active');
-        }, 3000); // Har 3 second mein
     }
+
+    setInterval(() => {
+        // Puraane slide se active class hatayein
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.remove('active');
+        }
+        
+        // Agle slide par jaayein
+        currentSlide = (currentSlide + 1) % slides.length;
+
+        // Naye slide par active class lagayein
+        if (slides[currentSlide]) {
+            slides[currentSlide].classList.add('active');
+        }
+    }, 5000); // Har 5 second mein
+}
+
+}); // <-- YEH DOMContentLoaded EVENT LISTENER KA SAHI CLOSING BRACKET HAI
