@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Pricing collection: accessible to all for reading, write for authenticated users
+    match /pricing/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    
+    // Existing rules should be preserved here if known, but for now we are adding pricing
+    // Users collection
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Bookings collection
+    match /bookings/{bookingId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

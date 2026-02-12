@@ -1,9 +1,0 @@
-deploy process
-
-git add .
-
-git commit -m "Yahan apne badlav ke baare mein likhein"
-
-git push
-
-firebase deploy
